@@ -1,7 +1,6 @@
 const ToneAnalyzerV3 = require('ibm-watson/tone-analyzer/v3');
 const { IamAuthenticator } = require('ibm-watson/auth');
-const { config } = require('dotenv/types');
-var 
+const { config } = require('../config');
 const toneAnalyzer = new ToneAnalyzerV3({
   version: '2017-09-21',
   authenticator: new IamAuthenticator({
@@ -18,17 +17,18 @@ exports.renderIndex = (req, res) => {
 }
 
 exports.postData = (req, res) =>{
-    console.log(req.body)
+    console.log(req.body.fname)
+    var text = req.body.fname
     const params = {
-        'tone_input' : {'text': text},
-        'content_type' : 'application/json'
+        toneInput : {'text': text},
+        contentType : 'application/json'
     };
     toneAnalyzer.tone(params, function(error, response){
         if(error){
             console.log('error',error);
         }else{
             res.render ("index", {
-                delpost:JSON.stringify(response,NULL,2)
+                delpost:JSON.stringify(response,null,2)
             });
         }
 
