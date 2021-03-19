@@ -13,7 +13,7 @@ const toneAnalyzer = new ToneAnalyzerV3({
 });
 
 exports.renderIndex = (req, res) => {
-    res.render("index");
+    res.send("Backend");
 }
 
 exports.postData = (req, res) =>{
@@ -27,9 +27,9 @@ exports.postData = (req, res) =>{
         if(error){
             console.log('error',error);
         }else{
-            res.render ("index", {
-                delpost:JSON.stringify(response,null,2)
-            });
+            res.send (
+                JSON.stringify(response,null,2)
+            );
         }
 
     })
